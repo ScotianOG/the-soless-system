@@ -1,0 +1,405 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String                 @id @default(uuid())
+  wallet            String                 @unique
+  telegramUsername  String?
+  discordUsername   String?
+  twitterUsername   String?
+  points            Int                    @default(0)
+  lastActive        DateTime?
+  createdAt         DateTime               @default(now())
+  lifetimePoints    Int                    @default(0)
+  bestRank          Int?
+  contestEntries    ContestEntry[]
+  qualifications    ContestQualification[]
+  rewards           ContestReward[]
+  discordAccount    DiscordAccount?
+  engagements       Engagement[]
+  inviteLinks       InviteLink[]
+  notifications     Notification[]
+  PointHistory      PointHistory[]
+  pointTransactions PointTransaction[]
+  telegramAccount   TelegramAccount?
+  twitterAccount    TwitterAccount?
+  streaks           UserStreak?
+  verificationCodes VerificationCode[]
+}
+
+model UserStreak {
+  id             String    @id @default(uuid())
+  userId         String    @unique
+  telegramStreak Int       @default(0)
+  discordStreak  Int       @default(0)
+  twitterStreak  Int       @default(0)
+  lastTelegram   DateTime?
+  lastDiscord    DateTime?
+  lastTwitter    DateTime?
+  user           User      @relation(fields: [userId], references: [id])
+}
+
+model TelegramAccount {
+  id         String   @id @default(uuid())
+  platformId String   @unique
+  username   String?
+  userId     String   @unique
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model DiscordAccount {
+  id         String   @id @default(uuid())
+  platformId String   @unique
+  username   String?
+  userId     String   @unique
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model TwitterAccount {
+  id         String   @id @default(uuid())
+  platformId String   @unique
+  username   String?
+  userId     String   @unique
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model VerificationCode {
+  id        String   @id @default(uuid())
+  userId    String
+  code      String   @unique
+  platform  Platform
+  expiresAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([code])
+}
+
+model Engagement {
+  id        String         @id @default(uuid())
+  userId    String
+  platform  Platform
+  type      EngagementType
+  metadata  Json?
+  timestamp DateTime       @default(now())
+  user      User           @relation(fields: [userId], references: [id])
+
+  @@index([userId, platform, type])
+  @@index([timestamp])
+}
+
+model PointTransaction {
+  id        String         @id @default(uuid())
+  userId    String
+  amount    Int
+  platform  Platform
+  reason    EngagementType
+  metadata  Json?
+  timestamp DateTime       @default(now())
+  contestId String?
+  contest   Contest?       @relation(fields: [contestId], references: [id])
+  user      User           @relation(fields: [userId], references: [id])
+
+  @@index([userId, platform])
+  @@index([timestamp])
+}
+
+model Contest {
+  id                String                 @id @default(uuid())
+  name              String
+  startTime         DateTime
+  endTime           DateTime
+  status            ContestStatus
+  description       String?
+  rules             Json?
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  metadata          Json?
+  entries           ContestEntry[]
+  qualifications    ContestQualification[]
+  rewards           ContestReward[]
+  pointTransactions PointTransaction[]
+
+  @@index([status])
+  @@index([startTime, endTime])
+}
+
+model ContestEntry {
+  id          String    @id @default(uuid())
+  contestId   String
+  userId      String
+  points      Int       @default(0)
+  rank        Int?
+  qualifiedAt DateTime?
+  metadata    Json?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  contest     Contest   @relation(fields: [contestId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@unique([contestId, userId])
+  @@index([points])
+}
+
+model ContestQualification {
+  id          String      @id @default(uuid())
+  contestId   String
+  userId      String
+  tier        ContestTier
+  qualifiedAt DateTime    @default(now())
+  metadata    Json?
+  contest     Contest     @relation(fields: [contestId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+
+  @@unique([contestId, userId, tier])
+}
+
+model ContestReward {
+  id          String       @id @default(uuid())
+  contestId   String
+  userId      String
+  type        RewardType
+  status      RewardStatus
+  amount      String?
+  description String?
+  claimedAt   DateTime?
+  expiresAt   DateTime?
+  metadata    Json?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  contest     Contest      @relation(fields: [contestId], references: [id])
+  user        User         @relation(fields: [userId], references: [id])
+
+  @@index([status, type])
+  @@index([userId, contestId])
+}
+
+model InviteLink {
+  id             String        @id @default(cuid())
+  code           String        @unique
+  fullInviteLink String
+  userId         String
+  contestId      String?
+  maxUses        Int?
+  usedCount      Int           @default(0)
+  used           Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  claims         InviteClaim[]
+  user           User          @relation(fields: [userId], references: [id])
+}
+
+model InviteClaim {
+  id               String     @id @default(cuid())
+  inviteId         String
+  telegramUserId   String
+  telegramUsername String?
+  claimedAt        DateTime   @default(now())
+  invite           InviteLink @relation(fields: [inviteId], references: [id])
+
+  @@unique([inviteId, telegramUserId])
+}
+
+model PointHistory {
+  id        Int            @id @default(autoincrement())
+  userId    String
+  points    Int
+  reason    EngagementType
+  platform  Platform
+  createdAt DateTime       @default(now())
+  user      User           @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  type      NotificationType
+  message   String
+  metadata  Json
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id])
+}
+
+model Document {
+  id          String       @id @default(uuid())
+  type        DocumentType
+  title       String
+  description String
+  content     String?
+  icon        String?
+  date        String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model BetaTesterSignup {
+  id               String   @id @default(uuid())
+  solanaAddress    String
+  sonicAddress     String
+  telegramUsername String
+  twitterHandle    String
+  createdAt        DateTime @default(now())
+  metadata         Json?
+
+  @@index([createdAt])
+}
+
+enum Platform {
+  TELEGRAM
+  DISCORD
+  TWITTER
+}
+
+enum EngagementType {
+  QUALITY_POST
+  DAILY_ACTIVE
+  STREAK_BONUS
+  CONVERSATION
+  MENTION
+  MUSIC_SHARE
+  INVITE
+  VOICE_CHAT
+  REACTION
+  TWEET
+  RETWEET
+  HASHTAG
+  MESSAGE
+  COMMAND
+  FACT_SHARE
+  TEACHING_POST
+  AI_CHAT
+}
+
+enum ContestStatus {
+  UPCOMING
+  ACTIVE
+  COMPLETED
+}
+
+enum RewardType {
+  USDC
+  SOLANA
+  SOUL
+  WHITELIST
+  FREE_MINT
+  FREE_GAS
+  NO_FEES
+  NONE
+}
+
+enum RewardStatus {
+  PENDING
+  CLAIMED
+  EXPIRED
+}
+
+enum ContestTier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+  DIAMOND
+}
+
+enum NotificationType {
+  REWARD_EARNED
+  CONTEST_UPDATE
+  RANK_UPDATE
+  TIER_UPDATE
+  POINTS_EARNED
+  POINTS_DEDUCTED
+  CONTEST_START
+  CONTEST_END
+  SYSTEM_MESSAGE
+}
+
+enum DocumentType {
+  MARKDOWN
+  PDF
+  EXTERNAL
+}
+
+// Social AI Models
+model SocialAIConfig {
+  id        String   @id @default(uuid())
+  enabled   Boolean  @default(false)
+  config    Json     // Stores the full configuration object
+  updatedBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SocialAIActivity {
+  id        String   @id @default(uuid())
+  type      String   // POST_CREATED, REPLY_SENT, MENTION_DETECTED, ERROR, ADMIN_ACTION
+  action    String   // Specific action taken
+  platform  String?  // twitter, discord, telegram
+  content   String?  // Content of post/reply
+  metadata  Json?    // Additional metadata
+  success   Boolean  @default(true)
+  error     String?  // Error message if failed
+  createdAt DateTime @default(now())
+
+  @@index([type, createdAt])
+  @@index([platform, createdAt])
+}
+
+model SocialAIContentTemplate {
+  id          String   @id @default(uuid())
+  name        String
+  category    String
+  template    String   // Template content with variables
+  variables   String[] // Available variables for the template
+  tags        String[] // Tags for categorization
+  enabled     Boolean  @default(true)
+  createdBy   String?
+  updatedBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category, enabled])
+}
+
+model SocialAIContentQueue {
+  id           String   @id @default(uuid())
+  platform     String   // twitter, discord, telegram
+  content      String
+  templateId   String?  // Reference to template used
+  scheduledFor DateTime
+  status       String   @default("PENDING") // PENDING, POSTED, FAILED, CANCELLED
+  attempts     Int      @default(0)
+  lastAttempt  DateTime?
+  error        String?
+  postedId     String?  // ID from the platform after posting
+  cancelledBy  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([platform, status, scheduledFor])
+}
+
+model SocialAITrendingTopic {
+  id          String   @id @default(uuid())
+  topic       String
+  platform    String?
+  score       Float    // Trending score
+  relevance   Float    // Relevance to SOLess
+  volume      Int      @default(0) // Number of mentions
+  sentiment   Float?   // Sentiment score
+  keywords    String[] // Related keywords
+  metadata    Json?    // Additional data
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime // When this trending data expires
+
+  @@index([platform, score, createdAt])
+  @@index([expiresAt])
+}

@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background-color: #000000;
+  color: white;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Custom scrollbar hiding for tab navigation */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.wallet-adapter-button {
+  background-color: transparent !important;
+  padding: 0 1rem !important;
+  height: 2.5rem !important;
+  color: white !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  border-radius: 0.5rem !important;
+  transition: opacity 0.2s ease-in-out !important;
+}
+
+.wallet-adapter-button-trigger {
+  background: linear-gradient(to right, #00ffff, #9945ff) !important;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  opacity: 0.9 !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  background: #0a0a0a !important;
+  border: 1px solid rgba(0, 255, 255, 0.2) !important;
+}
+
+.wallet-adapter-modal-button-close {
+  background: #1a1a1a !important;
+}
+
+/* Custom scrollbar for Soulie chat */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.3);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.5);
+}

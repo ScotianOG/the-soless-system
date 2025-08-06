@@ -1,0 +1,47 @@
+{
+  "name": "@soless/solspace",
+  "version": "1.0.0",
+  "description": "SOLSpace - Social engagement platform with viral NFT creation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "next dev -p 3003",
+    "build": "next build && anchor build",
+    "start": "next start -p 3003",
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "anchor:build": "anchor build",
+    "anchor:test": "anchor test",
+    "anchor:deploy": "anchor deploy"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.28.0",
+    "@metaplex-foundation/js": "^0.19.4",
+    "@solana/spl-token": "^0.3.8",
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.34",
+    "@solana/wallet-adapter-wallets": "^0.19.23",
+    "@solana/web3.js": "^1.78.4",
+    "@soless/shared-auth": "workspace:*",
+    "@soless/shared-ui": "workspace:*",
+    "@soless/shared-wallet": "workspace:*",
+    "@soless/shared-token-utilities": "workspace:*",
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.8",
+    "@types/node": "^20.9.0",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.17",
+    "eslint": "^8.54.0",
+    "eslint-config-next": "^14.0.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.3.2"
+  }
+}

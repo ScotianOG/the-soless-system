@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "src/core/bots/**/*",
+    "src/core/contest/**/*",
+    "src/core/engagement/**/*",
+    "src/core/points/**/*",
+    "src/routes/contests/**/*",
+    "src/routes/stats/**/*"
+  ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "skipLibCheck": true
+  }
+}

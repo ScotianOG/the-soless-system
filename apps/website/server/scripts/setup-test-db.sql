@@ -1,0 +1,66 @@
+-- Create enum types
+CREATE TYPE "Platform" AS ENUM ('TELEGRAM', 'DISCORD', 'TWITTER');
+CREATE TYPE "ContestStatus" AS ENUM ('UPCOMING', 'ACTIVE', 'COMPLETED');
+CREATE TYPE "EngagementType" AS ENUM (
+  'QUALITY_POST',
+  'DAILY_ACTIVE',
+  'STREAK_BONUS',
+  'CONVERSATION',
+  'MENTION',
+  'MUSIC_SHARE',
+  'INVITE',
+  'VOICE_CHAT',
+  'REACTION',
+  'TWEET',
+  'RETWEET',
+  'HASHTAG',
+  'MESSAGE',
+  'COMMAND'
+);
+
+-- Create User table
+CREATE TABLE IF NOT EXISTS "User" (
+  id TEXT PRIMARY KEY,
+  wallet TEXT UNIQUE NOT NULL,
+  points INTEGER NOT NULL DEFAULT 0,
+  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create VerificationCode table
+CREATE TABLE IF NOT EXISTS "VerificationCode" (
+  id TEXT PRIMARY KEY,
+  userId TEXT NOT NULL REFERENCES "User"(id),
+  code TEXT UNIQUE NOT NULL,
+  platform "Platform" NOT NULL,
+  expiresAt TIMESTAMP NOT NULL,
+  isUsed BOOLEAN NOT NULL DEFAULT false,
+  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create platform account tables
+CREATE TABLE IF NOT EXISTS "TelegramAccount" (
+  id TEXT PRIMARY KEY,
+  platformId TEXT UNIQUE NOT NULL,
+  username TEXT,
+  userId TEXT UNIQUE NOT NULL REFERENCES "User"(id),
+  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS "DiscordAccount" (
+  id TEXT PRIMARY KEY,
+  platformId TEXT UNIQUE NOT NULL,
+  username TEXT,
+  userId TEXT UNIQUE NOT NULL REFERENCES "User"(id),
+  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS "TwitterAccount" (
+  id TEXT PRIMARY KEY,
+  platformId TEXT UNIQUE NOT NULL,
+  username TEXT,
+  userId TEXT UNIQUE NOT NULL REFERENCES "User"(id),
+  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create indexes
+CREATE INDEX IF NOT EXISTS "verification_code_idx" ON "VerificationCode"(code);

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../fake-ai-engine"
+		}
+	],
+	"settings": {
+		"github.copilot.advanced": {}
+	}
+}

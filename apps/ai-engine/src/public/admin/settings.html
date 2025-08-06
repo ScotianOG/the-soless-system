@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLess Settings</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <header>
+        <h1>SOLess Admin Dashboard</h1>
+        <div class="nav-links">
+            <a href="/admin/index.html">Dashboard</a>
+            <a href="/admin/documents.html">Documents</a>
+            <a href="/admin/integration.html">Website Integration</a>
+            <a href="/admin/settings.html" class="active">Settings</a>
+        </div>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li><a href="/admin/index.html">Dashboard</a></li>
+                <li><a href="/admin/documents.html">Document Management</a></li>
+                <li><a href="/admin/integration.html">Website Integration</a></li>
+                <li><a href="/admin/settings.html" class="active">Settings</a></li>
+            </ul>
+        </aside>
+
+        <div class="content">
+            <!-- Persona Settings -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Bot Persona Settings</h2>
+                </div>
+                <div id="persona-settings-container">
+                    <form id="persona-form">
+                        <div class="form-group">
+                            <label for="persona-name">Bot Name:</label>
+                            <input type="text" id="persona-name" name="name" placeholder="e.g., SOLess Guide">
+                        </div>
+                        <div class="form-group">
+                            <label for="persona-style">Communication Style:</label>
+                            <textarea id="persona-style" name="style" rows="3" placeholder="e.g., Helpful, knowledgeable about Solana and SOLess, technically accurate but approachable"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="persona-background">Bot Background:</label>
+                            <textarea id="persona-background" name="background" rows="3" placeholder="e.g., Technical expert on the SOLess project and Solana ecosystem"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Save Persona Settings</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Telegram Bot Settings -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Telegram Bot Settings</h2>
+                </div>
+                <div id="telegram-settings-container">
+                    <form id="telegram-form">
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="telegram-enabled">
+                                Enable Telegram Bot
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="telegram-token">Bot Token:</label>
+                            <input type="text" id="telegram-token" name="token" placeholder="Enter your Telegram bot token here">
+                        </div>
+                        <div class="telegram-help">
+                            <p><strong>How to create and use a Telegram bot:</strong></p>
+                            <ol>
+                                <li>Open Telegram and search for <code>@BotFather</code></li>
+                                <li>Send the <code>/newbot</code> command</li>
+                                <li>Follow the instructions to name your bot</li>
+                                <li>Copy the API token provided by BotFather and paste it above</li>
+                                <li>Enable the bot in the form above and click "Save Telegram Settings"</li>
+                                <li>Restart your server to apply the changes</li>
+                                <li>In Telegram, search for your bot by username and start a chat</li>
+                                <li>Use the <code>/start</code> command to begin interacting with the bot</li>
+                            </ol>
+                            <p><strong>Adding the bot to a group chat:</strong></p>
+                            <ol>
+                                <li>In Telegram, create a group or open an existing group</li>
+                                <li>Click the group name at the top to access group settings</li>
+                                <li>Select "Add members" and search for your bot's username</li>
+                                <li>Once added, send <code>/start</code> in the group to activate the bot</li>
+                                <li>Group members can now interact with the bot by mentioning it or using commands</li>
+                            </ol>
+                            <p><strong>Note:</strong> After making changes to Telegram settings, you need to restart the server for changes to take effect.</p>
+                        </div>
+                        <div class="telegram-status" id="telegram-status">
+                            <!-- Status will be added by JavaScript -->
+                        </div>
+                        <button type="submit" class="btn">Save Telegram Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

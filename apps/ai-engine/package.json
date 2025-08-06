@@ -1,0 +1,31 @@
+{
+  "name": "fake-ai-engine",
+  "version": "1.0.0",
+  "description": "AI-powered narrative engine for the $FAKE project",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "telegram": "node src/telegramBot.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@octokit/rest": "^21.1.1",
+    "axios": "^1.6.2",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.21.2",
+    "fs-extra": "^11.3.0",
+    "markdown-it": "^13.0.1",
+    "multer": "^1.4.5-lts.1",
+    "node-telegram-bot-api": "^0.64.0",
+    "pdf-parse": "^1.1.1",
+    "simple-git": "^3.27.0",
+    "typescript": "^5.8.3",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

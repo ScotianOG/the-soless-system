@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../soless-presale-site"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"github.copilot.advanced": {}
+	}
+}

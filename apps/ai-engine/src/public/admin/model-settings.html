@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SOLess Admin - Model Settings</title>
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body>
+    <main class="container">
+      <aside class="sidebar">
+        <div class="logo">SOLess Admin</div>
+        <ul class="nav-links">
+          <li><a href="/admin/index.html">Chat</a></li>
+          <li><a href="/admin/documents.html">Documents</a></li>
+          <li><a href="/admin/integration.html">Integration</a></li>
+          <li><a href="/admin/settings.html">Settings</a></li>
+          <li>
+            <a href="/admin/model-settings.html" class="active"
+              >Model Settings</a
+            >
+          </li>
+        </ul>
+      </aside>
+
+      <div class="content">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Model Settings</h2>
+          </div>
+          <div class="model-settings">
+            <div class="status-section">
+              <h3>Current Status</h3>
+              <div id="model-status">Loading...</div>
+            </div>
+
+            <form id="model-form" class="settings-form">
+              <div class="form-group">
+                <label for="model-provider">Model Provider:</label>
+                <select id="model-provider" name="provider">
+                  <option value="">Loading providers...</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn">Save Changes</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Provider Information</h2>
+          </div>
+          <div class="provider-info">
+            <h3>Available Providers:</h3>
+            <div class="provider-details">
+              <h4>Anthropic (Claude)</h4>
+              <p>
+                The default provider using Anthropic's Claude API. Requires a
+                valid API key.
+              </p>
+
+              <h4>Ollama (Phind-CodeLlama)</h4>
+              <p>
+                Local model provider using Ollama. Requires Ollama to be
+                installed and running locally with the phind-codellama model.
+              </p>
+              <pre class="code-block">
+# To use Ollama provider:
+1. Install Ollama from https://ollama.ai
+2. Pull the model:
+   ollama pull phind-codellama
+3. Ensure Ollama is running locally</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/admin.js"></script>
+    <script src="js/modelSettings.js"></script>
+  </body>
+</html>

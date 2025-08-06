@@ -1,0 +1,78 @@
+{
+  "name": "soless-system",
+  "version": "1.0.0",
+  "description": "SOLess System - Comprehensive DeFi ecosystem on Solana",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:all": "concurrently \"npm run dev:swap\" \"npm run dev:solarium\" \"npm run dev:solspace\" \"npm run dev:website\" \"npm run dev:ai\"",
+    "dev:swap": "cd packages/soless-swap && npm run dev",
+    "dev:solarium": "cd packages/solarium && npm run dev",
+    "dev:solspace": "cd packages/solspace && npm run dev",
+    "dev:website": "cd apps/website && npm run dev",
+    "dev:ai": "cd apps/ai-engine && npm run dev",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "test": "turbo run test",
+    "test:unit": "turbo run test:unit",
+    "test:integration": "jest --config=tests/jest.integration.config.js",
+    "test:e2e": "playwright test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "turbo run type-check",
+    "prepare": "husky install",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=./packages/* && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "@playwright/test": "^1.40.0",
+    "@types/jest": "^29.5.8",
+    "@types/node": "^20.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0",
+    "turbo": "^1.10.16",
+    "typescript": "^5.3.2"
+  },
+  "packageManager": "npm@10.0.0",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ScotianOG/soless-system.git"
+  },
+  "keywords": [
+    "solana",
+    "defi",
+    "dex",
+    "nft",
+    "social",
+    "blockchain",
+    "web3",
+    "cryptocurrency",
+    "trading",
+    "deflationary"
+  ],
+  "author": "SOLess System Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ScotianOG/soless-system/issues"
+  },
+  "homepage": "https://github.com/ScotianOG/soless-system#readme"
+}

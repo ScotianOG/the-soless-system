@@ -1,0 +1,16 @@
+node_modules
+.env
+.DS_Store
+dist
+build
+
+# Local Netlify folder
+.netlify
+
+# Environment files
+.env
+.env.*
+.env.local
+.env.*.local
+.env.production
+.env.development

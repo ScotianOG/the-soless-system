@@ -1,0 +1,64 @@
+[build]
+base = "app"
+command = "npm install && npm run build"
+publish = "dist"
+framework = "vite"
+
+ignore = '''
+**/bot/**
+**/bots/**
+**/src/core/bots/**
+**/src/core/manager/**
+**/src/core/engagement/**
+**/src/core/contest/**
+**/src/core/reward/**
+**/src/core/types/**
+**/handlers/**
+**/managers/**
+EngagementTracker.ts
+UserManager.ts
+RewardManager.ts
+BotManager.ts
+PointManager.ts
+ecosystem.config.js
+pm2.config.js
+bot.ts
+bot.js
+worker.ts
+worker.js
+**/__tests__/**
+**/*.test.*
+**/*.spec.*
+**/test/**
+*/tests/**
+**/jest.config.*
+**/jest.setup.*
+.env.*
+nodemon.config.json
+.eslintrc*
+.prettierrc*
+tsconfig.tsbuildinfo
+docs/**
+documentation/**
+.vscode/**
+.idea/**
+.git/**
+.github/**
+.husky/**
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+config/**
+Soulie.pem
+babel.config.ts
+'''
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+[build.environment]
+NODE_VERSION = "20.18.0"
+NPM_VERSION = "9.8.1"
+VITE_API_URL = "https://soless.app/api"

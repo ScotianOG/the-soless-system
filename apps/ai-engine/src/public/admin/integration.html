@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLess Website Integration</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <header>
+        <h1>SOLess Admin Dashboard</h1>
+        <div class="nav-links">
+            <a href="/admin/index.html">Dashboard</a>
+            <a href="/admin/documents.html">Documents</a>
+            <a href="/admin/integration.html" class="active">Website Integration</a>
+            <a href="/admin/settings.html">Settings</a>
+        </div>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li><a href="/admin/index.html">Dashboard</a></li>
+                <li><a href="/admin/documents.html">Document Management</a></li>
+                <li><a href="/admin/integration.html" class="active">Website Integration</a></li>
+                <li><a href="/admin/settings.html">Settings</a></li>
+            </ul>
+        </aside>
+
+        <div class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Website Integration</h2>
+                </div>
+                <p>Integrate the SOLess chatbot into your website by adding the widget script to your HTML.</p>
+                <p>Simply copy the code below and paste it before the closing <code>&lt;/body&gt;</code> tag in your HTML.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Widget Code</h2>
+                </div>
+                <p>This will add a chat button to the bottom right of your website.</p>
+                <div class="code-box" id="widget-code">
+                    <!-- Code will be inserted by JavaScript -->
+                </div>
+                <button id="copy-widget-button" class="btn">Copy Code</button>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Configuration Options</h2>
+                </div>
+                <p>You can customize the widget by modifying the SOLessConfig object:</p>
+                <ul>
+                    <li><strong>position</strong>: 'bottom-right' (default), 'bottom-left', 'top-right', 'top-left'</li>
+                    <li><strong>primaryColor</strong>: Change to match your website's branding (hex color code)</li>
+                    <li><strong>welcomeMessage</strong>: The initial message shown when the chat is opened</li>
+                </ul>
+                <p>Example custom configuration:</p>
+                <div class="code-box">
+<pre>window.SOLessConfig = {
+  position: 'bottom-left',
+  primaryColor: '#2196F3',
+  welcomeMessage: 'Welcome to SOLess! How can I help you?'
+};</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

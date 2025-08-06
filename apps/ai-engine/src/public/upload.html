@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SOLess Document Upload</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #333; }
+    .file-upload { border: 2px dashed #ccc; padding: 20px; text-align: center; margin: 20px 0; }
+    #file-list { margin-top: 20px; }
+    .document-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
+    .delete-btn { background: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>SOLess Document Management</h1>
+  
+  <div class="file-upload">
+    <h2>Upload Knowledge Documents</h2>
+    <p>Upload PDF, Markdown, or TXT files to teach the SOLess bot.</p>
+    <form id="upload-form" enctype="multipart/form-data">
+      <input type="file" id="document" name="document" accept=".pdf,.md,.txt">
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+  
+  <div id="file-list">
+    <h2>Current Documents</h2>
+    <div id="documents-container">Loading...</div>
+  </div>
+  
+  <script>
+    // Load document list
+    async function loadDocuments() {
+      try {
+        const response = await fetch('/api/documents');
+        const data = await response.json();
+        
+        const container = document.getElementById('documents-container');
+        
+        if (data.documents && data.documents.length > 0) {
+          container.innerHTML = '';
+          
+          data.documents.forEach(doc => {
+            const item = document.createElement('div');
+            item.className = 'document-item';
+            
+            const name = document.createElement('div');
+            name.textContent = doc;
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.onclick = () => deleteDocument(doc);
+            
+            item.appendChild(name);
+            item.appendChild(deleteBtn);
+            container.appendChild(item);
+          });
+        } else {
+          container.innerHTML = '<p>No documents uploaded yet.</p>';
+        }
+      } catch (error) {
+        console.error('Error loading documents:', error);
+        document.getElementById('documents-container').innerHTML = 
+          '<p>Error loading documents. Please try again.</p>';
+      }
+    }
+    
+    // Delete a document
+    async function deleteDocument(filename) {
+      if (!confirm(`Are you sure you want to delete ${filename}?`)) {
+        return;
+      }
+      
+      try {
+        const response = await fetch(`/api/documents/${filename}`, {
+          method: 'DELETE'
+        });
+        
+        if (response.ok) {
+          loadDocuments();
+        } else {
+          alert('Failed to delete document');
+        }
+      } catch (error) {
+        console.error('Error deleting document:', error);
+        alert('Error deleting document');
+      }
+    }
+    
+    // Handle form submission
+    document.getElementById('upload-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const fileInput = document.getElementById('document');
+      if (!fileInput.files.length) {
+        alert('Please select a file to upload');
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('document', fileInput.files[0]);
+      
+      try {
+        const response = await fetch('/api/documents/upload', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (response.ok) {
+          fileInput.value = '';
+          loadDocuments();
+        } else {
+          const error = await response.json();
+          alert(`Upload failed: ${error.error || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error('Error uploading document:', error);
+        alert('Error uploading document');
+      }
+    });
+    
+    // Load documents on page load
+    loadDocuments();
+  </script>
+</body>
+</html>

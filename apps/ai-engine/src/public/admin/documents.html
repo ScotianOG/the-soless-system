@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOLess Document Management</title>
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body>
+    <header>
+      <h1>SOLess Admin Dashboard</h1>
+      <div class="nav-links">
+        <a href="/admin/index.html">Dashboard</a>
+        <a href="/admin/documents.html" class="active">Documents</a>
+        <a href="/admin/integration.html">Website Integration</a>
+        <a href="/admin/settings.html">Settings</a>
+      </div>
+    </header>
+
+    <main>
+      <aside class="sidebar">
+        <ul class="sidebar-nav">
+          <li><a href="/admin/index.html">Dashboard</a></li>
+          <li>
+            <a href="/admin/documents.html" class="active"
+              >Document Management</a
+            >
+          </li>
+          <li><a href="/admin/integration.html">Website Integration</a></li>
+          <li><a href="/admin/settings.html">Settings</a></li>
+        </ul>
+      </aside>
+
+      <div class="content">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Document Management</h2>
+          </div>
+          <p>
+            Upload knowledge documents to teach the SOLess chatbot. The bot will
+            use this information to provide accurate responses about the SOLess
+            project.
+          </p>
+          <p>
+            Supported file types: PDF, Markdown (.md), Text (.txt), and
+            TypeScript (.ts, .tsx) files.
+          </p>
+        </div>
+
+        <div class="file-upload">
+          <h2>Upload Knowledge Documents</h2>
+          <p>Upload files to enhance your SOLess chatbot's knowledge base.</p>
+          <form id="upload-form" enctype="multipart/form-data">
+            <input
+              type="file"
+              id="document"
+              name="document"
+              accept=".pdf,.md,.txt,.ts,.tsx"
+              multiple
+            />
+            <p class="file-help">
+              Select multiple files by holding Ctrl (or Cmd on Mac) while
+              choosing files.
+            </p>
+            <div id="selected-files"></div>
+            <button type="submit" class="btn">Upload Files</button>
+          </form>
+        </div>
+
+        <div class="file-upload github-upload">
+          <h2>Import GitHub Repository</h2>
+          <p>
+            Import documentation from a GitHub repository to enhance your SOLess
+            chatbot's knowledge base.
+          </p>
+          <form id="github-form">
+            <div class="form-group">
+              <label for="repository"
+                >GitHub Repository (format: owner/repo):</label
+              >
+              <input
+                type="text"
+                id="repository"
+                name="repository"
+                placeholder="e.g., solana-labs/solana"
+                required
+              />
+            </div>
+            <button type="submit" class="btn">Load Repository Files</button>
+          </form>
+
+          <div id="github-file-list" style="display: none">
+            <h3>Select Files to Import</h3>
+            <p>Choose the files you want to import into the knowledge base:</p>
+            <div class="file-tree">
+              <div id="repo-files"></div>
+            </div>
+            <div class="file-selection-controls">
+              <button id="select-all" class="btn btn-secondary">
+                Select All
+              </button>
+              <button id="select-docs" class="btn btn-secondary">
+                Select Documentation
+              </button>
+              <button id="import-selected" class="btn">
+                Import Selected Files
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="file-list">
+          <h2>Current Documents</h2>
+          <div id="documents-container">Loading...</div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/admin.js"></script>
+  </body>
+</html>

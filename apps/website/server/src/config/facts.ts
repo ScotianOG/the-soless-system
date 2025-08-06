@@ -1,0 +1,45 @@
+export const SOLESS_FACTS = [
+  "SOLess Swap accepts any token for gas fees",
+  "SOLspace auto-mints viral social media content",
+  "SOLarium guarantees NFT floor prices through tokens",
+  "The SOLess System burns tokens through 11+ mechanisms",
+  "The SOLess System built on Solana blockchain",
+  "SOLspace verifies content authenticity on-chain",
+  "SOLarium's first mint will consist of 3,000 SOULIE NFTs",
+  "SOLspace auto-upgrades NFTs based on engagement",
+  "SOLess Swap is integrated with Octane relayer network",
+  "The SOLess System enables cross-platform token burning",
+  "SOLarium provides real-time NFT floor price backing",
+  "The SOLess community achieved 40.8% organic engagement in their first month",
+  "SOLess Swap uses AI for transaction routing",
+  "SOLspace implements tiered verification for reputation",
+  "SOLess Swap burns any meme token of your choice as part of gas tx fees",
+  "SOLarium offers guaranteed NFT liquidity options",
+  "SOLspace uses smart contract content moderation",
+  "SOLess Swap features dynamic gas token rebalancing",
+  "SOLless Swap burns tokens through liquidity provision",
+  "SOLspace records content engagement history on-chain",
+  "SOLspace assigns trust scores to news agencies and governments",
+  "SOLspace timestamps prevent content manipulation",
+  "SOLarium's mathematical floor price preserves NFT value",
+  "SOLspace content value scales with engagement velocity",
+  "The SOLess System will launch with at least 30-40% through utility mechanism",
+  "SOLess Swap fees burn 0.1-1% per transaction",
+  "The SOLess System compounds burns across platform",
+  "SOLarium requires 20% minimum token backing",
+  "SOLess Swap rebalances liquidity every 15 minutes",
+  "SOLspace trust scores impact burn rates exponentially",
+  "SOLarium's buyback maintains NFT floor support",
+  "The SOLess System increases locks with verification tiers",
+  "SOLspace engagement directly impacts token scarcity",
+  "SOLess Swap uses dynamic gas fee multipliers",
+  "SOLarium vault locks grow with system adoption",
+  "The SOLess System creates compounding deflationary pressure",
+];
+
+export const FACT_CONFIG = {
+  command: "solfact",
+  points: 2, // Points awarded per fact share
+  dailyLimit: 3, // Maximum times per day
+  cooldown: 14400, // 4 hours in seconds
+};
