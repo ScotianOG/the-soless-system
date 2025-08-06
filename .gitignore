@@ -34,6 +34,18 @@
 !scripts/build/*.sh
 !scripts/dev/*.sh
 
+# Temporary/Development scripts (these should never be in repo)
+*-fixed.ts
+*-fixed.js
+rateLimiter-*.ts
+rateLimiter-*.js
+test-*.js
+test-*.ts
+inspect-*.js
+inspect-*.ts
+*-debug.js
+*-debug.ts
+
 # Documentation (too many outdated files)
 *.md
 !README.md
@@ -41,6 +53,19 @@
 !LICENSE.md
 docs/
 **/docs/
+
+# SQL files (database scripts/dumps)
+*.sql
+!schema.sql
+!migrations/*.sql
+
+# Config/deployment files
+exclude-list.txt
+*-exclude-list.txt
+*.yaml
+*.yml
+!docker-compose.yml
+!.github/workflows/*.yml
 
 # Temporary files
 *.tmp
